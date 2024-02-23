@@ -1,20 +1,16 @@
 const express = require('express');
-
+const ExpressError = require('./expressError')
 const app = express();
-
 app.use(express.json());
 
 app.get('/', function(req, res) {
   return res.send('Hello World!');
 });
 
-app.get("/mean/", function(req, res) {
-
+app.get("/mean/", function(req, res,next) {
 const { nums } = req.query;
 let vals=nums.split(',').map(Number)
-
 let sum=vals.reduce((a,b)=>a+b)
-
 let mean = sum/vals.length
 response={
   operation:'mean',
@@ -29,7 +25,6 @@ app.get("/median/", function(req, res) {
   const { nums } = req.query;
   let vals=nums.split(',').map(Number)
   let mid = Math.floor(vals.length/ 2)
-
  let median=(vals[mid])
  response={
   operation:'median',
